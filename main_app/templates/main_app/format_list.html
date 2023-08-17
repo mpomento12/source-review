@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Format List</h1>
+
+{% for format in format_list %}
+<a href="{% url 'formats_detail' format.id %}">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ format.name }}</span>
+    </div>
+  </div>
+</a>
+{% endfor %} {% endblock %}

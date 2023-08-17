@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 
 REVIEWS = (
@@ -8,8 +9,15 @@ REVIEWS = (
     ('B', 'Bad')
 )
 
+class Format(models.Model):
+    name = models.CharField(max_length=50)
 
-# Create your models here.
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('formats_detail', kwargs={'pk': self.id})
+
 
 class Album(models.Model):
     name = models.CharField(max_length=100)
@@ -17,6 +25,7 @@ class Album(models.Model):
     company = models.CharField(max_length=100)
     article = models.TextField(max_length=10000, default="")
     year = models.IntegerField()
+    formats = models.ManyToManyField(Format)
 
     def __str__(self):
         return self.name
