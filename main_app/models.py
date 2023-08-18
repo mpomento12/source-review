@@ -3,7 +3,7 @@ from django.urls import reverse
 from datetime import date
 
 
-REVIEWS = (
+REVIEWS =(
     ('C', 'Classic'),
     ('O', 'Okay '),
     ('B', 'Bad')
