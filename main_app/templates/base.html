@@ -16,6 +16,7 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
   <body>
@@ -31,7 +32,7 @@
           </ul>
           <ul class="right">
             <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'formats_create' %}">Add a Format</a></li>
+            <!-- <li><a href="{% url 'formats_create' %}">Add a Format</a></li> -->
              <li><a href="{% url 'formats_index' %}">View All Formats</a></li>
             <li><a href="{% url 'albums_create' %}">Add an Album</a></li>
             <li><a href="{% url 'index' %}">View All the Albums</a></li>
@@ -41,7 +42,7 @@
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer">
-        All Rights Reserved, &copy; 2023 Source Review &nbsp;
+        All Rights Reserved, &copy; 2023 Album Review &nbsp;
       </div>
     </footer>
   </body>

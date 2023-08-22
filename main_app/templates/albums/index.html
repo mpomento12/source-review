@@ -3,14 +3,30 @@
 <h1>Album List</h1>
 
 {% for album in albums %}
-<div class="card">
-  <a href="{% url 'detail' album.id %}">
-    <div class="card-content">
-      <span class="card-title">{{ album.name }}</span></a>
-      <p>Artist: {{ album.artist }}</p>
-      <p>Record Company: {{ album.company }}</p>
-      <p>Year Released: {{ album.year }}</p>
-    </div>
-  
-</div>
+  <div class="card">
+    <a href="{% url 'detail' album.id %}">
+            <div class="card horizontal">
+              <div class="card-content">
+                {% for photo in album.photo_set.all %}
+                <img class="responsive-img card-panel" src="{{photo.url}}" />
+                {% endfor %}
+              </div>
+
+        <div class="card-stacked">
+          <div class="card-content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <span class="card-title">{{ album.name }}</span>
+        </a>
+            <p>Artist: {{ album.artist }}</p>
+            <p>Record Company: {{ album.company }}</p>
+            <p>Year Released: {{ album.year }}</p>
+          </div>
+        </div>
+  </div>
+
 {% endfor %} {% endblock %}
