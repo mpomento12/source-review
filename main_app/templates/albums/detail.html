@@ -18,94 +18,99 @@
       </div>
     </div>
   </div>
+
   <div class="col s6">
-      {% for photo in album.photo_set.all %}
-      <img class="responsive-img card-panel" src="{{photo.url}}" />
-      {% empty %}
-      <div class="card-panel red-text center-align">No Photos Uploaded</div>
-      {% endfor %}
-
-      <form action="{% url 'add_photo' album.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-        {% csrf_token %}
-        <input type="file" name="photo-file">
-        <br><br>
-        <input type="submit" class="btn" value="Upload Photo">
+    {% for photo in album.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}" />
+    {% empty %}
+    <div class="card-panel red-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+    <form
+      action="{% url 'add_photo' album.id %}"
+      enctype="multipart/form-data"
+      method="POST"
+      class="card-panel"
+    >
+      {% csrf_token %}
+      <input type="file" name="photo-file" />
+      <br /><br />
+      <input type="submit" class="btn" value="Upload Photo" />
     </form>
-    </div>
-      <div class="row2">
-        <div class="col s6">
-          <h3>{{ album.name }} Formats</h3>
-          {% if album.formats.count %} {% for format in album.formats.all %}
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title"> {{ format.name }} </span>
-            </div>
-          </div>
-          {% endfor %} {% else %}
-          <h5>No Format :(</h5>
-          {% endif %}
-        </div>
-        <!-- Available toys will come after this line -->
-        <div class="row2">
-          <div class="col s6">
-            {% if formats.count %} {% for format in formats.all %}
-            <div class="card">
-              <div class="card-content">
-                <span class="card-title"> {{ format.name }} </span>
-              </div>
-              <div class="card-action">
-                <form
-                  action="{% url 'assoc_format' album.id format.id %}"
-                  method="POST"
-                >
-                  {% csrf_token %}
-                  <button type="submit" class="btn">Add</button>
-                </form>
-              </div>
-            </div>
-            {% endfor %} {% else %} {% endif %}
-          </div>
-        </div>
-      </div>
-      <div class="row3">
-        <div class="col s6">
-          <h3>Article Review</h3>
-          <form action="{% url 'add_review' album.id %}" method="POST">
-            {% csrf_token %} {{ review_form.as_p }}
-            <input type="submit" class="btn" value="Add Review" />
-          </form>
-          <table class="striped">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Review</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for review in album.review_set.all %}
-              <tr>
-                <td>{{review.date}}</td>
-                <td>{{review.get_piece_display}}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      const dateEl = document.getElementById("id_date");
-      M.Datepicker.init(dateEl, {
-        format: "yyyy-mm-dd",
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true,
-      });
-
-      const selectEl = document.getElementById("id_piece");
-      M.FormSelect.init(selectEl);
-    </script>
-    {% endblock %}
   </div>
+
+  <div class="row1">
+    <div class="col s6">
+      <h3>Article Review</h3>
+      <form action="{% url 'add_review' album.id %}" method="POST">
+        {% csrf_token %} {{ review_form.as_p }}
+        <input type="submit" class="btn" value="Add Review" />
+      </form>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Review</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for review in album.review_set.all %}
+          <tr>
+            <td>{{review.date}}</td>
+            <td>{{review.get_piece_display}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row3">
+    <div class="col s6">
+      <h3>{{ album.name }} Formats</h3>
+      {% if album.formats.count %} {% for format in album.formats.all %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"> {{ format.name }} </span>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h5>No Format :(</h5>
+      {% endif %}
+    </div>
+    <div class="row2">
+      <div class="col s6">
+        {% if formats.count %} {% for format in formats.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title"> {{ format.name }} </span>
+          </div>
+          <div class="card-action">
+            <form
+              action="{% url 'assoc_format' album.id format.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+          {% endfor %} {% else %} {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dateEl = document.getElementById("id_date");
+    M.Datepicker.init(dateEl, {
+      format: "yyyy-mm-dd",
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true,
+    });
+
+    const selectEl = document.getElementById("id_piece");
+    M.FormSelect.init(selectEl);
+  </script>
+
+  {% endblock %}
 </div>
